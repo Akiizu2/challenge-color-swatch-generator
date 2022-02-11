@@ -16,7 +16,7 @@ npm install
 ### Run on local
 
 ```
-npm build & npm start
+npm run build && npm start
 ```
 
 ## How to extend new color space

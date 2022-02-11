@@ -167,5 +167,5 @@ export function hslToCssProperty({
   saturation,
   lightness,
 }: HSLColor): string {
-  return `hsl(${hue}, ${saturation}%, ${lightness})`;
+  return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
 }
