@@ -22,11 +22,3 @@ export interface HSLColor {
 // export interface BRGBColor {
 //   value: number;
 // }
-
-// {
-//   "rgb": {
-//   "red": 198,
-//   "green": 151,
-//   "blue": 74
-//   }
-//   },

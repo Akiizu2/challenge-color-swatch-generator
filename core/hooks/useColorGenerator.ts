@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useCallback, useState } from "react";
 import { fetchColors } from "../api/color";
 

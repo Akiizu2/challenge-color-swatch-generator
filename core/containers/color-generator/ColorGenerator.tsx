@@ -1,6 +1,6 @@
-import { Button, CircularProgress } from "@mui/material";
-
+import { Button } from "@mui/material";
 import React from "react";
+
 import { ColorSwatch } from "../../components/color-swatch";
 
 import { useColorGenerator } from "../../hooks";
@@ -12,7 +12,7 @@ type ColorGeneratorProps = {
 };
 
 const ColorGenerator: React.FC<ColorGeneratorProps> = ({ colors }) => {
-  const { generate, colors: generatedColor, loading } = useColorGenerator();
+  const { generate, colors: generatedColor } = useColorGenerator();
 
   const colorSwatch = (generatedColor || colors) as ColorSpace[];
 
