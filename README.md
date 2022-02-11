@@ -1,34 +1,68 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Color Generator
 
-## Getting Started
+## Dependencies
 
-First, run the development server:
+- NestJS
+- MaterialUI --- https://mui.com/
 
-```bash
-npm run dev
-# or
-yarn dev
+## How to run
+
+### Install dependencies
+
+```
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run on local
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```
+npm build & npm start
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## How to extend new color space
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+To add new color space. There're two file need to be update.
 
-## Learn More
+- `color-spaces.config.d.ts` -- Type declaration file
+- `color-spaces.config.ts` -- Color space configs file
 
-To learn more about Next.js, take a look at the following resources:
+### Steps
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. Go to `core/types/color-spaces.config.d.ts` and add new type
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```javascript
+export interface ColorSpaceConfigs {
+  rgb: ColorSpaceMethods<RGBColor>;
+  hsl: ColorSpaceMethods<HSLColor>;
 
-## Deploy on Vercel
+  // Extending custom color space
+  brgb: ColorSpaceMethods<any>;
+}
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+2. Go to `core/configs/color-spaces.config.ts` and add a new color space config. there're required three methods.
+   - `toHex` -- convert the custom color space to be hex format
+   - `fromHex` -- convert from hex format to be custom color space
+   - `toCssProperty` -- format from the custom color space to be `css` property string.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+```javascript
+const configs: ColorSpaceConfigs = {
+  rgb: {
+    toHex: rgbToHex,
+    fromHex: hexToRGB,
+    toCssProperty: rgbToCssProperty,
+  },
+  hsl: {
+    toHex: hslToHex,
+    fromHex: hexToHSL,
+    toCssProperty: hslToCssProperty,
+  },
+
+  // Extending custom color space
+  brgb: {
+    toHex: brgbToHex,
+    fromHex: hexToBRGB,
+    toCssProperty: brgbToCssProperty,
+  },
+};
+```
